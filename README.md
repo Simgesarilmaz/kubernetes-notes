@@ -6,7 +6,7 @@
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-Learning-326CE5?logo=kubernetes&logoColor=white)
 ![Status](https://img.shields.io/badge/Durum-Devam%20Ediyor-yellow)
 
-🎓 Eğitim reposu (hoca): [aytitech/k8sfundamentals](https://github.com/aytitech/k8sfundamentals)
+🎓 Eğitim reposu : [aytitech/k8sfundamentals](https://github.com/aytitech/k8sfundamentals)
 
 ---
 
@@ -14,7 +14,7 @@
 
 | # | Konu | Klasör | ✔ |
 |---|------|--------|:-:|
-| 01 | Giriş | [`01-giris`](./01-giris) | ⬜ |
+| 01 | Giriş | [`01-giris`](./01-giris) | ✅ |
 | 02 | Kubernetes Mimarisi (Teori) | [`02-mimari`](./02-mimari) | ⬜ |
 | 03 | Kurulum (Setup) | [`03-setup`](./03-setup) | ⬜ |
 | 04 | kubectl | [`04-kubectl`](./04-kubectl) | ⬜ |
