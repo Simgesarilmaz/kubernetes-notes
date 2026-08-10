@@ -15,9 +15,9 @@
 | # | Konu | Klasör | ✔ |
 |---|------|--------|:-:|
 | 01 | Giriş | [`01-giris`](./01-giris) | ✅ |
-| 02 | Kubernetes Mimarisi (Teori) | [`02-mimari`](./02-mimari) | ⬜ |
-| 03 | Kurulum (Setup) | [`03-setup`](./03-setup) | ⬜ |
-| 04 | kubectl | [`04-kubectl`](./04-kubectl) | ⬜ |
+| 02 | Kubernetes Mimarisi (Teori) | [`02-mimari`](./02-mimari) | ✅ |
+| 03 | Kurulum (Setup) | [`03-setup`](./03-setup) | ✅ |
+| 04 | kubectl | [`04-kubectl`](./04-kubectl) | ✅ |
 | 05 | Pod | [`05-pod`](./05-pod) | ⬜ |
 | 06 | Label & Selector | [`06-labelselector`](./06-labelselector) | ⬜ |
 | 07 | Service | [`07-service`](./07-service) | ⬜ |
