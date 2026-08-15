@@ -17,7 +17,7 @@ yöneten üst nesnelerle (Deployment, ReplicaSet) oluştururuz.
 
 ---
 
-## 🔑 Anahtar Kavramlar (dinlerken dikkat et)
+## 🔑 Anahtar Kavramlar
 
 - Pod nedir? (en küçük dağıtım birimi)
 - Pod = bir veya daha fazla container (network + storage paylaşır)
