@@ -18,10 +18,10 @@
 | 02 | Kubernetes Mimarisi (Teori) | [`02-mimari`](./02-mimari) | ✅ |
 | 03 | Kurulum (Setup) | [`03-setup`](./03-setup) | ✅ |
 | 04 | kubectl | [`04-kubectl`](./04-kubectl) | ✅ |
-| 05 | Pod | [`05-pod`](./05-pod) | ⬜ |
-| 06 | Label & Selector | [`06-labelselector`](./06-labelselector) | ⬜ |
-| 07 | Service | [`07-service`](./07-service) | ⬜ |
-| 08 | Deployment | [`08-deployment`](./08-deployment) | ⬜ |
+| 05 | Pod | [`05-pod`](./05-pod) | ✅ |
+| 06 | Label & Selector | [`06-labelselector`](./06-labelselector) | ✅ |
+| 07 | Service | [`07-service`](./07-service) | ✅ |
+| 08 | Deployment | [`08-deployment`](./08-deployment) | ✅ |
 | 09 | Secret & ConfigMap | [`09-secretconfigmap`](./09-secretconfigmap) | ⬜ |
 | 10 | Resource Request & Limit | [`10-requestlimit`](./10-requestlimit) | ⬜ |
 | 11 | Image Pull Secret | [`11-imagesecret`](./11-imagesecret) | ⬜ |
