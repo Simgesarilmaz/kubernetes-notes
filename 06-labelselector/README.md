@@ -240,6 +240,80 @@ Diyelim 20 worker node'unuz var; bazılarında hızlı (SSD), bazılarında yava
 
 ---
 
+## 6. Annotation (Ek Bilgi / Açıklama)
+
+Bazen objeye bilgi eklemek isteriz ama bu bilgi **label olarak tutulmaya uygun değildir**. İşte bu tür ek bilgileri objeye **annotation** ("açıklama") olarak ekleriz.
+
+### Label vs Annotation Farkı — Neden Ayrı?
+
+Buradaki kritik nokta şudur: **Label'lar Kubernetes tarafından işlevsel olarak kullanılır.** Selector'lar, controller'lar (Deployment, ReplicaSet), Service'ler objeleri label'lara bakarak bulur ve yönetir. Dolayısıyla bir label'ı değiştirmek/silmek sistemin davranışını doğrudan etkileyebilir (örn. bir Service o pod'a trafik göndermeyi bırakabilir, bir ReplicaSet pod'u "sahipsiz" görüp yenisini oluşturabilir).
+
+- **Label** → seçim/filtreleme için, sistemin *üzerinde işlem yaptığı* tanımlayıcı bilgi.
+- **Annotation** → Kubernetes'in selector ile *işlemediği*, sadece bilgi amaçlı veya araçlara yapılandırma sağlayan metadata.
+
+Bu yüzden "kim oluşturdu", "ne zaman oluşturuldu", "iletişim e-postası" gibi bilgileri label yerine **annotation** olarak eklemek daha doğrudur.
+
+### Annotation Yapısı
+
+```
+example.com/notification-email : admin@k8sfundamentals.com
+    │                │                      │
+  Prefix          Anahtar                 Değer
+(opsiyonel)
+```
+
+### Annotation Kuralları
+
+Aşağıdaki kurallar **anahtar (key)** için geçerlidir (label kurallarıyla neredeyse aynıdır):
+
+- Prefix "önek" kısmı **opsiyoneldir**, zorunlu değildir.
+- Anahtar alanı **63 karakter veya daha az** olmalıdır.
+- Alfanumerik bir karakterle (`[a-z 0-9 A-Z]`) **başlamalı ve bitmelidir**.
+- Arada tire (`-`), alt çizgi (`_`), nokta (`.`) ve alfanumerik değerler içerebilir.
+- ⚠️ **Değer (value)** alanında bu kurallar geçerli değildir; değer, alfanumerik olmayan karakterler de içerebilir (örn. e-posta adresi, tarih).
+
+### YAML Örneği (`podannotation.yaml`)
+
+Annotation da tıpkı label gibi `metadata` altında tanımlanır:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotationpod
+  annotations:
+    owner: "SSS"
+    notification-email: "admin@test.com"
+    releasedate: "06.10.2021"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  containers:
+  - name: annotationcontainer
+    image: nginx
+    ports:
+    - containerPort: 80
+```
+
+> Buradaki `nginx.ingress.kubernetes.io/force-ssl-redirect: "true"` satırı, annotation'ın ikinci önemli kullanımını gösterir: **araçlara/controller'lara yapılandırma bilgisi vermek.** Bu annotation'ı nginx ingress controller okur ve davranışını ona göre değiştirir. Prefix kısmı (`nginx.ingress.kubernetes.io/`) annotation'ın hangi araca ait olduğunu belirtir.
+
+### Annotation Yönetimi (Imperative)
+
+Label yönetimindeki mantığın **birebir aynısı** annotation için de geçerlidir:
+
+```bash
+# Annotation ekleme
+kubectl annotate pods annotationpod foo=bar
+# çıktı: pod/annotationpod annotated
+
+# Annotation silme (anahtar sonuna "-" koyulur)
+kubectl annotate pods annotationpod foo-
+# çıktı: pod/annotationpod annotated
+```
+
+> Tıpkı label'da olduğu gibi, silme işlemi anahtar adının sonuna `-` (tire) eklenerek yapılır.
+
+---
+
 ## Özet
 
 - **Label** = objelere atanan `key:value` çifti; `metadata` altında tanımlanır.
@@ -250,3 +324,6 @@ Diyelim 20 worker node'unuz var; bazılarında hızlı (SSD), bazılarında yava
 - `!=`/`notin` = "anahtar var, değeri şu değil"; `!key` = "anahtar hiç yok".
 - Label yönetimi: ekle (`key=val`), sil (`key-`), güncelle (`--overwrite`), tümüne (`--all`).
 - **`nodeSelector`** + node label'ı ile pod belirli node'lara yerleştirilir.
+- **Annotation** = objeye eklenen, Kubernetes'in selector ile *işlemediği* ek bilgi (owner, tarih, e-posta) veya araçlara verilen yapılandırma (`nginx.ingress...`). `metadata.annotations` altında tanımlanır.
+- Annotation anahtar kuralları label ile aynıdır; ancak **değer alanı** alfanumerik olmayan karakter içerebilir.
+- Annotation yönetimi label ile aynı mantık: ekle (`kubectl annotate ... key=val`), sil (`kubectl annotate ... key-`).
